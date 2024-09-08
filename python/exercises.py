@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from collections.abc import Callable
-import os
+
 
 def change(amount: int) -> dict[int, int]:
     if not isinstance(amount, int):
@@ -45,49 +45,90 @@ def say(word=None):
     return inner_say
 
 # Write your line count function here
-def check_file_path(file_path: str):
-    try:
-        # Get the absolute path from the relative path
-        absolute_path = os.path.abspath(file_path)
-
-        # Print the working directory and the absolute path
-        print(f"Current Working Directory: {os.getcwd()}")
-        print(f"Absolute path of the file: {absolute_path}")
-
-        # Check if the file exists
-        if not os.path.exists(absolute_path):
-            print(f"File does not exist at: {absolute_path}")
-        else:
-            print(f"File found at: {absolute_path}")
-            # Try to print the content of the file
-            with open(absolute_path, 'r') as file:
-                content = file.read()
-                print(content)
-    except FileNotFoundError as e:
-        print(f"FileNotFoundError: {e}")
-
-# Call the function with the relative path for testing.
-check_file_path("../test-for-line-count.txt")
-
-# def meaningful_line_count(file_path: str) -> int:
-#     count = 0
-#     try:
-#         # Print the current working directory for debugging
-#         print(f"Current Working Directory: {os.getcwd()}")
+def meaningful_line_count(file_path: str):
+        count = 0
+        try:
+            with open(file_path, "r") as file:
+                for line in file:
+                    stripped_line = line.strip()
+                    # Check if the line is not empty and does not start with '#'
+                    if stripped_line and not stripped_line.startswith('#'):
+                        count += 1
+        except FileNotFoundError:
+            raise FileNotFoundError("No such file")
         
-#         # Check if the file exists at the given path
-#         if not os.path.exists(file_path):
-#             raise FileNotFoundError(f"No such file: '{file_path}'")
-        
-#         with open(file_path, 'r') as file:
-#             for line in file:
-#                 stripped_line = line.strip()
-#                 if stripped_line and not stripped_line.startswith('#'):
-#                     count += 1
-#     except FileNotFoundError as e:
-#         # Propagate the error with a custom message if necessary
-#         raise FileNotFoundError(f"No such file: '{file_path}'") from e
-#     return count
-# print(meaningful_line_count("../test-for-line-count.txt"))
-# print(meaningful_line_count("no-such-file.txt"))
+        return count
 # Write your Quaternion class here
+class Quaternion:
+    def __init__(self, a: float, b: float, c: float, d: float) -> None:
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+    
+    def __add__(self, other):
+        return Quaternion(self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d)
+    
+    def __mul__(self, other):
+        if isinstance(other, Quaternion):
+            # Quaternion multiplication formula
+            a = self.a * other.a - self.b * other.b - self.c * other.c - self.d * other.d
+            b = self.a * other.b + self.b * other.a + self.c * other.d - self.d * other.c
+            c = self.a * other.c - self.b * other.d + self.c * other.a + self.d * other.b
+            d = self.a * other.d + self.b * other.c - self.c * other.b + self.d * other.a
+            return Quaternion(a, b, c, d)
+        elif isinstance(other, (int, float)):
+            # Scalar multiplication
+            return Quaternion(self.a * other, self.b * other, self.c * other, self.d * other)
+        else:
+            raise TypeError("Multiplication only supports Quaternion or scalar types.")
+    
+    @property
+    def conjugate(self):
+        """Return the conjugate of the quaternion."""
+        return Quaternion(self.a, -self.b, -self.c, -self.d)
+    
+    def __eq__(self, other):
+        """Equality check for quaternions."""
+        return (self.a == other.a and self.b == other.b and self.c == other.c and self.d == other.d)
+    
+    @property
+    def coefficients(self):
+        """Return the coefficients (a, b, c, d) as a tuple."""
+        return (self.a, self.b, self.c, self.d)
+    
+    def __repr__(self):
+        parts = []
+        
+        # Scalar part (a)
+        if self.a != 0:
+            parts.append(f"{self.a}")
+
+        # Imaginary parts (b, c, d)
+        if self.b != 0:
+            if self.b == 1:
+                parts.append("+i")
+            elif self.b == -1:
+                parts.append("-i")
+            else:
+                parts.append(f"{self.b:+}i")
+        
+        if self.c != 0:
+            if self.c == 1:
+                parts.append("+j")
+            elif self.c == -1:
+                parts.append("-j")
+            else:
+                parts.append(f"{self.c:+}j")
+
+        if self.d != 0:
+            if self.d == 1:
+                parts.append("+k")
+            elif self.d == -1:
+                parts.append("-k")
+            else:
+                parts.append(f"{self.d:+}k")
+        
+        # Join the parts together and remove any leading "+" signs
+        result = "".join(parts)
+        return result.lstrip('+') if result else '0'
