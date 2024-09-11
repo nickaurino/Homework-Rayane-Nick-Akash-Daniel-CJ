@@ -3,9 +3,9 @@ import { deepEqual, throws, rejects } from "node:assert/strict"
 import {
   change,
   firstThenLowerCase,
-  // say,
+  say,
   powersGenerator,
-  // meaningfulLineCount,
+  meaningfulLineCount,
   // Quaternion,
 } from "./exercises.js"
 
@@ -52,27 +52,27 @@ describe("The firstThenLowerCase function", () => {
   })
 })
 
-// describe("The say function", () => {
-//   it("works when there are no words", () => {
-//     deepEqual(say(), "")
-//   })
-//   it("works when there are words", () => {
-//     deepEqual(say("hi")(), "hi")
-//     deepEqual(say("hi")("there")(), "hi there")
-//     deepEqual(
-//       say("hello")("my")("name")("is")("Colette")(),
-//       "hello my name is Colette"
-//     )
-//   })
-//   it("handles spaces and empty words", () => {
-//     deepEqual(say("h i")(), "h i")
-//     deepEqual(say("hi ")("   there")(), "hi     there")
-//     deepEqual(say("")("")("dog")("")("go")(), "  dog  go")
-//   })
-//   it("handles emojis", () => {
-//     deepEqual(say("😄🤗")("💀👊🏾")(), "😄🤗 💀👊🏾")
-//   })
-// })
+describe("The say function", () => {
+  it("works when there are no words", () => {
+    deepEqual(say(), "")
+  })
+  it("works when there are words", () => {
+    deepEqual(say("hi")(), "hi")
+    deepEqual(say("hi")("there")(), "hi there")
+    deepEqual(
+      say("hello")("my")("name")("is")("Colette")(),
+      "hello my name is Colette"
+    )
+  })
+  it("handles spaces and empty words", () => {
+    deepEqual(say("h i")(), "h i")
+    deepEqual(say("hi ")("   there")(), "hi     there")
+    deepEqual(say("")("")("dog")("")("go")(), "  dog  go")
+  })
+  it("handles emojis", () => {
+    deepEqual(say("😄🤗")("💀👊🏾")(), "😄🤗 💀👊🏾")
+  })
+})
 
 describe("The powers generator", () => {
   it("works as expected", () => {
@@ -90,15 +90,15 @@ describe("The powers generator", () => {
   })
 })
 
-// describe("The meaningfulLineCount function", async () => {
-//   await it("throws if no such file", async () => {
-//     rejects(async () => await meaningfulLineCount("NoSuchFile.txt"), /Error/)
-//   })
-//   await it("correctly counts lines for the test file", async () => {
-//     const count = await meaningfulLineCount("../test-for-line-count.txt")
-//     deepEqual(count, 5)
-//   })
-// })
+describe("The meaningfulLineCount function", async () => {
+  await it("throws if no such file", async () => {
+    rejects(async () => await meaningfulLineCount("NoSuchFile.txt"), /Error/)
+  })
+  await it("correctly counts lines for the test file", async () => {
+    const count = await meaningfulLineCount("../test-for-line-count.txt")
+    deepEqual(count, 5)
+  })
+})
 
 // describe("The Quaternion class", () => {
 //   const zero = new Quaternion(0, 0, 0, 0)

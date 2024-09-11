@@ -37,7 +37,45 @@ export function* powersGenerator({ ofBase, upTo }) {
 }
 
 // Write your say function here
+export function say(word) {
+  // store words in internal array, init empty if none available
+  say.words = say.words || []
+
+  // make sure word exists
+  if (word !== undefined) {
+    say.words.push(word)
+    return say
+  }
+
+  // handle no arguments
+  const result = say.words.join(" ")
+
+  // reset function state
+  say.words = []
+
+  return result
+}
 
 // Write your line count function here
+export async function meaningfulLineCount(fileName) {
+  try {
+    const fileHandle = await open(fileName, "r")
+
+    const content = await fileHandle.readFile("utf-8")
+
+    await fileHandle.close()
+
+    const lines = content.split("\n")
+
+    const validLines = lines.filter((line) => {
+      const trimmedLine = line.trim()
+      return trimmedLine && !trimmedLine.startsWith("#")
+    })
+
+    return validLines.length
+  } catch (error) {
+    throw new Error(`Error reading file: ${error.message}`)
+  }
+}
 
 // Write your Quaternion class here
