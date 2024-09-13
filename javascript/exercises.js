@@ -78,4 +78,59 @@ export async function meaningfulLineCount(fileName) {
   }
 }
 
-// Write your Quaternion class here
+export class Quaternion {
+  constructor(a, b, c, d) {
+    this.a = a; 
+    this.b = b; 
+    this.c = c; 
+    this.d = d; 
+
+
+    Object.freeze(this);
+  }
+
+
+  get coefficients() {
+    return [this.a, this.b, this.c, this.d];
+  }
+
+
+  get conjugate() {
+    return new Quaternion(this.a, -this.b, -this.c, -this.d);
+  }
+
+
+  plus(quaternion) {
+    return new Quaternion(
+      this.a + quaternion.a,
+      this.b + quaternion.b,
+      this.c + quaternion.c,
+      this.d + quaternion.d
+    );
+  }
+
+
+  times(quaternion) {
+    const a1 = this.a, b1 = this.b, c1 = this.c, d1 = this.d;
+    const a2 = quaternion.a, b2 = quaternion.b, c2 = quaternion.c, d2 = quaternion.d;
+    
+    return new Quaternion(
+      a1 * a2 - b1 * b2 - c1 * c2 - d1 * d2,
+      a1 * b2 + b1 * a2 + c1 * d2 - d1 * c2,
+      a1 * c2 - b1 * d2 + c1 * a2 + d1 * b2,
+      a1 * d2 + b1 * c2 - c1 * b2 + d1 * a2
+    );
+  }
+  toString() {
+    const parts = [];
+    if (this.a !== 0) parts.push(this.a);
+    if (this.b !== 0) parts.push(`${this.b === 1 ? '' : this.b === -1 ? '-' : this.b}i`);
+    if (this.c !== 0) parts.push(`${this.c === 1 ? '' : this.c === -1 ? '-' : this.c}j`);
+    if (this.d !== 0) parts.push(`${this.d === 1 ? '' : this.d === -1 ? '-' : this.d}k`);
+    
+
+    return parts.join('+').replace(/\+-/g, '-').replace(/^\+/, '') || '0';
+  }
+}
+
+
