@@ -85,21 +85,21 @@ export class Quaternion {
     this.c = c; 
     this.d = d; 
 
-
+  //Freezing to make immutable
     Object.freeze(this);
   }
 
-
+  //Returns the coefficients as an array
   get coefficients() {
     return [this.a, this.b, this.c, this.d];
   }
 
-
+  //Computes the conjugate
   get conjugate() {
     return new Quaternion(this.a, -this.b, -this.c, -this.d);
   }
 
-
+ //Adds two quaternions
   plus(quaternion) {
     return new Quaternion(
       this.a + quaternion.a,
@@ -109,7 +109,7 @@ export class Quaternion {
     );
   }
 
-
+ //Multiplies two quaternions
   times(quaternion) {
     const a1 = this.a, b1 = this.b, c1 = this.c, d1 = this.d;
     const a2 = quaternion.a, b2 = quaternion.b, c2 = quaternion.c, d2 = quaternion.d;
@@ -121,6 +121,8 @@ export class Quaternion {
       a1 * d2 + b1 * c2 - c1 * b2 + d1 * a2
     );
   }
+
+  //Creates the string representation
   toString() {
     const parts = [];
     if (this.a !== 0) parts.push(this.a);
