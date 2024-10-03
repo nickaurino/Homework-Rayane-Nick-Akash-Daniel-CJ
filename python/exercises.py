@@ -28,6 +28,7 @@ def powers_generator(*, base, limit):
     while number <= limit:
         yield number
         number *= base
+        
 # Write your say function here
 def say(word=None):
     # Base case: if called without an argument, return an empty string

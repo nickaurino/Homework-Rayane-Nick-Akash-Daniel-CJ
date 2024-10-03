@@ -15,10 +15,37 @@ fun change(amount: Long): Map<Int, Long> {
 }
 
 // Write your first then lower case function here
+fun firstThenLowerCase(a: List<String>, p: (String) -> Boolean): String? {
+    return a.firstOrNull(p)?.lowercase()
+}
 
 // Write your say function here
+class Say(private val words: String = "") {
+
+    fun and(nextWord: String): Say {
+        val newPhrase = if (words.isEmpty()) nextWord else "$words $nextWord"
+        return Say(newPhrase)
+    }
+
+    val phrase: String
+        get() = words
+}
+
+fun say(initialWord: String = ""): Say {
+    return Say(initialWord)
+}
 
 // Write your meaningfulLineCount function here
+@Throws(IOException::class)
+fun meaningfulLineCount(filename: String): Long {
+    BufferedReader(FileReader(filename)).use { reader -> 
+        return reader.lineSequence()
+            .filter { it.isNotBlank() && !it.trimStart().startsWith("#") }
+            .count()
+            .toLong()
+    }
+}
+
 
 // Write your Quaternion data class here
 

@@ -36,32 +36,33 @@ fun main() {
     expect(change(100000000037) == mapOf(25 to 4000000001L, 10 to 1L, 5 to 0L, 1 to 2L))
     expect(change(10000000000005) == mapOf(25 to 400000000000L, 10 to 0L, 5 to 1L, 1 to 0L))
 
-    // Uncomment the following tests as you complete the exercises
 
-    // suite("firstThenLowerCase");
-    // expect(firstThenLowerCase(listOf(), { !it.isEmpty() }) == null)
-    // expect(firstThenLowerCase(listOf("", "A", "B"), { !it.isEmpty() }) == "a")
-    // expect(firstThenLowerCase(listOf("", "A", "ABC"), { it.length > 3 }) == null)
-    // expect(firstThenLowerCase(listOf("ABC", "ABCD", "ABCDE"), { it.length > 3 }) == "abcd")
+    suite("firstThenLowerCase");
+    expect(firstThenLowerCase(listOf(), { !it.isEmpty() }) == null)
+    expect(firstThenLowerCase(listOf("", "A", "B"), { !it.isEmpty() }) == "a")
+    expect(firstThenLowerCase(listOf("", "A", "ABC"), { it.length > 3 }) == null)
+    expect(firstThenLowerCase(listOf("ABC", "ABCD", "ABCDE"), { it.length > 3 }) == "abcd")
 
-    // suite("say")
-    // expect(say().phrase == "")
-    // expect(say("hi").phrase == "hi")
-    // expect(say("Oh").and("kay").phrase == "Oh kay")
-    // expect(say("hello").and("my").and("name").and("is").and("Colette").phrase == "hello my name is Colette")
-    // expect(say("h i").phrase == "h i")
-    // expect(say("hi ").and("   there").phrase == "hi     there")
-    // expect(say("").and("").and("dog").and("").and("go").phrase == "  dog  go")
-    // expect(say("🐤🦇").and("$🦊👏🏽").and("!").phrase == "🐤🦇 $🦊👏🏽 !")
-    // expect(say("😄🤗").and("💀👊🏾").phrase == "😄🤗 💀👊🏾")
-    // // Ensure there is no sharing of partial states!
-    // val greet = say("Hello").and("there")
-    // expect(greet.and("nice").and("person").phrase == "Hello there nice person")
-    // expect(greet.and("Swift").phrase == "Hello there Swift")
+    suite("say")
+    expect(say().phrase == "")
+    expect(say("hi").phrase == "hi")
+    expect(say("Oh").and("kay").phrase == "Oh kay")
+    expect(say("hello").and("my").and("name").and("is").and("Colette").phrase == "hello my name is Colette")
+    expect(say("h i").phrase == "h i")
+    expect(say("hi ").and("   there").phrase == "hi     there")
+    expect(say("").and("").and("dog").and("").and("go").phrase == "  dog  go")
+    expect(say("🐤🦇").and("$🦊👏🏽").and("!").phrase == "🐤🦇 $🦊👏🏽 !")
+    expect(say("😄🤗").and("💀👊🏾").phrase == "😄🤗 💀👊🏾")
+    
+    
+    // Ensure there is no sharing of partial states!
+    val greet = say("Hello").and("there")
+    expect(greet.and("nice").and("person").phrase == "Hello there nice person")
+    expect(greet.and("Swift").phrase == "Hello there Swift")
 
-    // suite("meaningfulLineCount")
-    // expectToThrow({ meaningfulLineCount("no-such-file.txt") }, IOException::class.java, "No such file")
-    // expect(meaningfulLineCount("../test-for-line-count.txt") == 5L)
+    suite("meaningfulLineCount")
+    expectToThrow({ meaningfulLineCount("no-such-file.txt") }, IOException::class.java, "No such file")
+    expect(meaningfulLineCount("../test-for-line-count.txt") == 5L)
 
     // suite("Quaternion")
     // val q = Quaternion(3.5, 2.25, -100.0, -1.25)
@@ -121,6 +122,8 @@ fun main() {
     // expect(t.contains("J"))
     // expect(!t.contains("Z"))
     // expect(t.toString() == "(((A)B((C)D))G(H(J)))")
+    
+    
     // // Test immutability
     // var t2: BinarySearchTree = t;
     // t2 = t2.insert("F");
