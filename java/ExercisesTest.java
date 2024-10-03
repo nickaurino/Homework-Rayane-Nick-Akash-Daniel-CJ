@@ -136,35 +136,35 @@ public class ExercisesTest {
         expect(("" + new Quaternion(-1, -2, 0, 0)).equals("-1.0-2.0i"));
         expect(("" + new Quaternion(1, 0, -2, 5)).equals("1.0-2.0j+5.0k"));
 
-        // suite("BinarySearchTree");
-        // BinarySearchTree t = new Empty();
-        // expect(t.size() == 0);
-        // expect(!t.contains("A"));
-        // expect(t.toString().equals("()"));
-        // t = t.insert("G");
-        // expect(t.size() == 1);
-        // expect(t.contains("G"));
-        // expect(!t.contains("A"));
-        // expect(t.toString().equals("(G)"));
-        // t = t.insert("B");
-        // expect(t.toString().equals("((B)G)"));
-        // t = t.insert("D");
-        // expect(t.toString().equals("((B(D))G)"));
-        // t = t.insert("H");
-        // expect(t.toString().equals("((B(D))G(H))"));
-        // t = t.insert("A");
-        // expect(t.toString().equals("(((A)B(D))G(H))"));
-        // t = t.insert("C");
-        // t = t.insert("J");
-        // expect(t.size() == 7);
-        // expect(t.contains("J"));
-        // expect(!t.contains("Z"));
-        // expect(t.toString().equals("(((A)B((C)D))G(H(J)))"));
-        // // Test immutability
-        // BinarySearchTree t2 = t;
-        // t2 = t2.insert("F");
-        // expect(t2.size() == 8);
-        // expect(t.size() == 7);
+        suite("BinarySearchTree");
+        BinarySearchTree t = new Empty();
+        expect(t.size() == 0);
+        expect(!t.contains("A"));
+        expect(t.toString().equals("()"));
+        t = t.insert("G");
+        expect(t.size() == 1);
+        expect(t.contains("G"));
+        expect(!t.contains("A"));
+        expect(t.toString().equals("(G)"));
+        t = t.insert("B");
+        expect(t.toString().equals("((B)G)"));
+        t = t.insert("D");
+        expect(t.toString().equals("((B(D))G)"));
+        t = t.insert("H");
+        expect(t.toString().equals("((B(D))G(H))"));
+        t = t.insert("A");
+        expect(t.toString().equals("(((A)B(D))G(H))"));
+        t = t.insert("C");
+        t = t.insert("J");
+        expect(t.size() == 7);
+        expect(t.contains("J"));
+        expect(!t.contains("Z"));
+        expect(t.toString().equals("(((A)B((C)D))G(H(J)))"));
+        // Test immutability
+        BinarySearchTree t2 = t;
+        t2 = t2.insert("F");
+        expect(t2.size() == 8);
+        expect(t.size() == 7);
 
         System.out.printf("\n%d passed, %d failed\n", counts.get(true), counts.get(false));
     }
