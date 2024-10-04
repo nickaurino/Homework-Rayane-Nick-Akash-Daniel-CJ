@@ -50,3 +50,48 @@ fun meaningfulLineCount(filename: String): Long {
 // Write your Quaternion data class here
 
 // Write your Binary Search Tree interface and implementing classes here
+sealed interface BinarySearchTree {
+    fun size(): Int
+    fun contains(value: String): Boolean
+    fun insert(value: String): BinarySearchTree
+
+    // To convert tree into String
+    override fun toString(): String
+
+    object Empty : BinarySearchTree {
+        override fun size(): Int = 0
+        override fun contains(value: String): Boolean = false
+        override fun insert(value: String): BinarySearchTree = Node(value, Empty, Empty)
+        override fun toString(): String = "()"
+    }
+
+    data class Node(
+        val value: String,
+        val left: BinarySearchTree,
+        val right: BinarySearchTree
+    ) : BinarySearchTree {
+        override fun size(): Int = 1 + left.size() + right.size()
+        
+        override fun contains(value: String): Boolean {
+            return when {
+                this.value == value -> true
+                value < this.value -> left.contains(value)
+                else -> right.contains(value)
+            }
+        }
+
+        override fun insert(value: String): BinarySearchTree {
+            return when {
+                value < this.value -> copy(left = left.insert(value))
+                value > this.value -> copy(right = right.insert(value))
+                else -> this // val exists leave as is
+            }
+        }
+
+        override fun toString(): String {
+            val leftStr = if (left == Empty) "" else left.toString()
+            val rightStr = if (right == Empty) "" else right.toString()
+            return "($leftStr$value$rightStr)"
+        }
+    }
+}
