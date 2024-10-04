@@ -48,6 +48,62 @@ fun meaningfulLineCount(filename: String): Long {
 
 
 // Write your Quaternion data class here
+data class Quaternion private constructor(
+    val a: Double,
+    val b: Double,
+    val c: Double,
+    val d: Double
+) {
+
+    companion object {
+        val ZERO = Quaternion(0.0, 0.0, 0.0, 0.0)
+        val I = Quaternion(0.0, 1.0, 0.0, 0.0)
+        val J = Quaternion(0.0, 0.0, 1.0, 0.0)
+        val K = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+        operator fun invoke(a: Double, b: Double, c: Double, d: Double): Quaternion {
+            return Quaternion(a, b, c, d)
+        }
+    }
+
+    // quat addition
+    operator fun plus(other: Quaternion): Quaternion {
+        return Quaternion(
+            this.a + other.a,
+            this.b + other.b,
+            this.c + other.c,
+            this.d + other.d
+        )
+    }
+
+    // quat multiplication
+    operator fun times(other: Quaternion): Quaternion {
+        val newA = this.a * other.a - this.b * other.b - this.c * other.c - this.d * other.d
+        val newB = this.a * other.b + this.b * other.a + this.c * other.d - this.d * other.c
+        val newC = this.a * other.c - this.b * other.d + this.c * other.a + this.d * other.b
+        val newD = this.a * other.d + this.b * other.c - this.c * other.b + this.d * other.a
+        return Quaternion(newA, newB, newC, newD)
+    }
+
+    fun coefficients(): List<Double> {
+        return listOf(a, b, c, d)
+    }
+
+    // Conjugate
+    fun conjugate(): Quaternion {
+        return Quaternion(a, -b, -c, -d)
+    } 
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        if (a != 0.0) sb.append(a)
+        if (b != 0.0) sb.append(if (b > 0 && sb.isNotEmpty()) "+" else "").append("${b}i")
+        if (c != 0.0) sb.append(if (c > 0 && sb.isNotEmpty()) "+" else "").append("${c}j")
+        if (d != 0.0) sb.append(if (d > 0 && sb.isNotEmpty()) "+" else "").append("${d}k")
+        return if (sb.isEmpty()) "0" else sb.toString()
+    }
+    
+}
 
 // Write your Binary Search Tree interface and implementing classes here
 sealed interface BinarySearchTree {
