@@ -22,8 +22,10 @@ fun firstThenLowerCase(a: List<String>, p: (String) -> Boolean): String? {
 // Write your say function here
 class Say(private val words: String = "") {
 
+    // method to add strings
     fun and(nextWord: String): Say {
         val newPhrase = if (words.isEmpty()) nextWord else "$words $nextWord"
+        if (nextWord.isEmpty()) return Say(words + " ")
         return Say(newPhrase)
     }
 
@@ -96,10 +98,21 @@ data class Quaternion private constructor(
 
     override fun toString(): String {
         val sb = StringBuilder()
+
         if (a != 0.0) sb.append(a)
-        if (b != 0.0) sb.append(if (b > 0 && sb.isNotEmpty()) "+" else "").append("${b}i")
-        if (c != 0.0) sb.append(if (c > 0 && sb.isNotEmpty()) "+" else "").append("${c}j")
-        if (d != 0.0) sb.append(if (d > 0 && sb.isNotEmpty()) "+" else "").append("${d}k")
+        
+        if (b == 1.0) sb.append(if (sb.isNotEmpty()) "+" else "").append("i")
+        else if (b == -1.0) sb.append("-i")
+        else if (b != 0.0) sb.append(if (b > 0 && sb.isNotEmpty()) "+" else "").append("${b}i")
+
+        if (c == 1.0) sb.append(if (sb.isNotEmpty()) "+" else "").append("j")
+        else if (c == -1.0) sb.append("-j")
+        else if (c != 0.0) sb.append(if (c > 0 && sb.isNotEmpty()) "+" else "").append("${c}j")
+
+        if (d == 1.0) sb.append(if (sb.isNotEmpty()) "+" else "").append("k")
+        else if (d == -1.0) sb.append("-k")
+        else if (d != 0.0) sb.append(if (d > 0 && sb.isNotEmpty()) "+" else "").append("${d}k")
+        
         return if (sb.isEmpty()) "0" else sb.toString()
     }
     
@@ -128,6 +141,7 @@ sealed interface BinarySearchTree {
     ) : BinarySearchTree {
         override fun size(): Int = 1 + left.size() + right.size()
         
+        // check if tree contains string
         override fun contains(value: String): Boolean {
             return when {
                 this.value == value -> true
@@ -136,6 +150,7 @@ sealed interface BinarySearchTree {
             }
         }
 
+        // insert String into tree
         override fun insert(value: String): BinarySearchTree {
             return when {
                 value < this.value -> copy(left = left.insert(value))
@@ -143,7 +158,7 @@ sealed interface BinarySearchTree {
                 else -> this // val exists leave as is
             }
         }
-
+        
         override fun toString(): String {
             val leftStr = if (left == Empty) "" else left.toString()
             val rightStr = if (right == Empty) "" else right.toString()
