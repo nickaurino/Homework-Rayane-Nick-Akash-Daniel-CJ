@@ -22,8 +22,8 @@ fixture =
     , ( "change 100000000037", test_change 100000000037 (4000000001, 1, 0, 2) )
     , ( "change 10000000000005", test_change 10000000000005 (400000000000, 0, 1, 0) )
     -- Uncomment the following lines as you implement the functions
-    -- , ( "firstThenApply empty list", (firstThenApply [] (/= "") lower) == Nothing )
-    -- , ( "firstThenApply lowercase ok", (firstThenApply ["", "A", "B"] (/= "") lower) == Just "a" )
+    , ( "firstThenApply empty list", (firstThenApply [] (/= "") lower) == Nothing )
+    , ( "firstThenApply lowercase ok", (firstThenApply ["", "A", "B"] (/= "") lower) == Just "a" )
     -- , ( "firstThenApply lengthOver3 no match"
     --   , (firstThenApply ["", "A", "ABC"] lengthOverThree lower == Nothing ))
     -- , ( "firstThenApply lengthOver3 match"

@@ -1,5 +1,7 @@
 module Exercises
-    ( change,
+    ( change
+    , firstThenApply
+    , powers
       -- put the proper exports here
     ) where
 
@@ -21,8 +23,12 @@ change amount
                 newCounts = Map.insert d count counts
 
 -- Write your first then apply function here
+firstThenApply :: [a] -> (a -> Bool) -> (a -> b) -> Maybe b
+firstThenApply xs p f = f <$> find p xs
 
 -- Write your infinite powers generator here
+powers :: Integral a => a -> Int -> [a]
+powers base limit = take (limit + 1) $ map (base ^) [0..]
 
 -- Write your line count function here
 
