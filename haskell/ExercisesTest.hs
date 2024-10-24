@@ -48,13 +48,13 @@ fixture =
     , ( "new tree contains nothing", not $ contains 5 Empty)
     , ( "new tree shows as ()", show (Empty::BST Int) == "()")
     , ( "inserting G", show g == "(\"G\")")
-    -- , ( "inserting G then B", show gb == "((\"B\")\"G\")")
-    -- , ( "inserting G then B then D", show gbd == "((\"B\"(\"D\"))\"G\")")
-    -- , ( "number tree", show tree_52381 == "(((1)2(3))5(8))")
-    -- , ( "number tree with extra", show (insert 0 tree_52381) == "((((0)1)2(3))5(8))")
-    -- , ( "number tree did not change", show tree_52381 == "(((1)2(3))5(8))")
-    -- , ( "number tree inoder empty", inorder (Empty::BST Int) == [])
-    -- , ( "number tree inorder", inorder tree_52381 == [1, 2, 3, 5, 8])
+    , ( "inserting G then B", show gb == "((\"B\")\"G\")")
+    , ( "inserting G then B then D", show gbd == "((\"B\"(\"D\"))\"G\")")
+    , ( "number tree", show tree_52381 == "(((1)2(3))5(8))")
+    , ( "number tree with extra", show (insert 0 tree_52381) == "((((0)1)2(3))5(8))")
+    , ( "number tree did not change", show tree_52381 == "(((1)2(3))5(8))")
+    , ( "number tree inoder empty", inorder (Empty::BST Int) == [])
+    , ( "number tree inorder", inorder tree_52381 == [1, 2, 3, 5, 8])
     ]
     -- Uncomment the following as needed as you implement your tests
     where
@@ -62,14 +62,13 @@ fixture =
         lengthOverThree = (> 3) . length
         x `is_approx` y = abs (x - y) < 0.0000001
         g = insert "G" Empty
-        -- gb = insert "B" g
-        -- gbd = insert "D" gb
-        -- tree_52381 = insert 1 $ insert 8 $ insert 3 $ insert 2 $ insert 5 Empty
+        gb = insert "B" g
+        gbd = insert "D" gb
+        tree_52381 = insert 1 $ insert 8 $ insert 3 $ insert 2 $ insert 5 Empty
 
 main =
     -- You'll have to do some uncommenting here too!
     let results = map test fixture in do
-        printf "%s\n" (show (insert "G" Empty))
         putStrLn $ unlines $ map fst results
         failed <- return $ sum $ map snd results
         passed <- return $ length fixture - failed

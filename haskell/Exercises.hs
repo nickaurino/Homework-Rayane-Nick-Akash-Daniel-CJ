@@ -10,17 +10,15 @@ module Exercises
     , size
     , insert
     , contains
+    , inorder
     ) where
 
 import qualified Data.Map as Map
 import Data.Text (pack, unpack, replace)
-import Data.Text.Internal
 import Data.List(isPrefixOf, find)
 import Data.Char(isSpace)
 import System.IO
 import Control.Exception (bracket)
-
-import Text.Printf(printf)
 
 change :: Integer -> Either String (Map.Map Integer Integer)
 change amount
@@ -92,10 +90,15 @@ contains x (Node y left right n)
     | otherwise = True
     
 instance Show a => Show (BST a) where
-    show Empty = sideshow True Empty
-    show (Node y left right n) = sideshow False (Node y left right n)
+    show Empty = "()"
+    show (Node y left right n) = case left of
+        Empty -> case right of
+            Empty -> "(" ++ show y ++ ")"
+            Node _ _ _ _ -> "(" ++ show y ++ show right ++ ")"
+        Node _ _ _ _ -> case right of
+            Empty -> "(" ++ show left ++ show y ++ ")"
+            Node _ _ _ _ -> "(" ++ show left ++ show y ++ show right ++ ")"
 
-sideshow :: Bool -> BST a -> String
-sideshow True Empty = "()"
-sideshow False Empty = ""
-sideshow False (Node y left right n) = "(" ++ sideshow False left ++ show y ++ sideshow False right ++ ")"
+inorder :: BST a -> [a]
+inorder Empty = []
+inorder (Node y left right n) = inorder left ++ [y] ++ inorder right
