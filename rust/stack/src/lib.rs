@@ -5,16 +5,36 @@ pub struct Stack<T> {
 
 impl<T> Stack<T> {
     // Implement new
+    fn new() -> Self {
+        Self {
+            items: Vec::new()
+        }
+    } 
 
     // Implement push
+    fn push(&mut self, item: T) {
+        self.items.push(item);
+    }
 
     // Implement pop
+    fn pop(&mut self) -> Option<T> {
+        self.items.pop()
+    }
 
     // Implement peek
+    fn peek(&self) -> Option<&T> {
+        self.items.last()
+    }
 
     // Implement is_empty
+    fn is_empty(&self) -> bool {
+        self.items.is_empty()
+    }
 
     // Implement len
+    fn len(&self) -> usize {
+        self.items.len()
+    }
 }
 
 #[cfg(test)]
