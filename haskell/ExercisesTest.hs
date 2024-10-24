@@ -44,10 +44,10 @@ fixture =
     , ( "boxes are equatable", (Box 2 10 3) == (Box 2 10 3))
     , ( "spheres can be shown", (show $ Sphere 3) == "Sphere 3.0")
     , ( "boxes can be shown", (show $ Box 3 1 2) == "Box 3.0 1.0 2.0")
-    -- , ( "new tree size is 0", size Empty == 0)
-    -- , ( "new tree contains nothing", not $ contains 5 Empty)
-    -- , ( "new tree shows as ()", show (Empty::BST Int) == "()")
-    -- , ( "inserting G", show g == "(\"G\")")
+    , ( "new tree size is 0", size Empty == 0)
+    , ( "new tree contains nothing", not $ contains 5 Empty)
+    , ( "new tree shows as ()", show (Empty::BST Int) == "()")
+    , ( "inserting G", show g == "(\"G\")")
     -- , ( "inserting G then B", show gb == "((\"B\")\"G\")")
     -- , ( "inserting G then B then D", show gbd == "((\"B\"(\"D\"))\"G\")")
     -- , ( "number tree", show tree_52381 == "(((1)2(3))5(8))")
@@ -61,7 +61,7 @@ fixture =
         lower = unpack . toLower . pack
         lengthOverThree = (> 3) . length
         x `is_approx` y = abs (x - y) < 0.0000001
-        -- g = insert "G" Empty
+        g = insert "G" Empty
         -- gb = insert "B" g
         -- gbd = insert "D" gb
         -- tree_52381 = insert 1 $ insert 8 $ insert 3 $ insert 2 $ insert 5 Empty
@@ -69,6 +69,7 @@ fixture =
 main =
     -- You'll have to do some uncommenting here too!
     let results = map test fixture in do
+        printf "%s\n" (show (insert "G" Empty))
         putStrLn $ unlines $ map fst results
         failed <- return $ sum $ map snd results
         passed <- return $ length fixture - failed
