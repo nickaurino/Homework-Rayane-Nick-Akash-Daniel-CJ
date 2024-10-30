@@ -125,13 +125,18 @@ export class BinarySearchTree<T> {
 
   toString(): string {
     if (this.root === null) {
-      return "";
+      return "";  // Empty tree returns an empty string
     }
-    const left = this.root.left.toString();
-    const right = this.root.right.toString();
-    return `(${left ? left : ""}${this.root.value}${right ? right : ""})`;
+  
+    // Only include left and right subtrees if they are not empty
+    const left = this.root.left instanceof Empty ? "" : this.root.left.toString();
+    const right = this.root.right instanceof Empty ? "" : this.root.right.toString();
+  
+    return `(${left}${this.root.value}${right})`;
   }
 }
+
+
 
 export class Empty<T> extends BinarySearchTree<T> {
   constructor() {
@@ -141,4 +146,10 @@ export class Empty<T> extends BinarySearchTree<T> {
   inorder(): T[] {
     return [];
   }
+
+  // Override toString to return "()" for an empty tree
+  toString(): string {
+    return "()";
+  }
 }
+
