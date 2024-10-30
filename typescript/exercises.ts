@@ -41,7 +41,7 @@ export async function meaningfulLineCount(filePath: string): Promise<number> {
   return count;
 }
 // Write your shape type and associated functions here
-type Shape =
+export type Shape =
   | { kind: "Box"; width: number; length: number; depth: number }
   | { kind: "Sphere"; radius: number };
 
