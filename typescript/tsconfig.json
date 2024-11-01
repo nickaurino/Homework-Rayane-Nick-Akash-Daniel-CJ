@@ -4,6 +4,8 @@
     "outDir": "dist",
     "module": "nodenext",
     "target": "esnext",
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "skipLibCheck": true
   }
 }
